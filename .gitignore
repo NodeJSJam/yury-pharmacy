@@ -3,6 +3,9 @@
 /node_modules
 /.yarn
 
+# env files
+.env
+
 # database log
 /tmp
 
