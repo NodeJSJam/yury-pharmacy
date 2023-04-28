@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigurationsModule } from './configurations/configurations.module';
 import { DatabaseConfigService } from './configurations/database';
 import { AppConfigService } from './configurations/app';
+import { DrugsModule } from './drugs/drugs.module';
+import { BrandsModule } from './brands/brands.module';
 
 @Module({
   imports: [
@@ -17,11 +19,12 @@ import { AppConfigService } from './configurations/app';
         password: databaseConfigService.password,
         database: databaseConfigService.databaseName,
         synchronize: !appConfig.isProdaction,
+        autoLoadEntities: true,
       }),
     }),
     ConfigurationsModule,
+    DrugsModule,
+    BrandsModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
