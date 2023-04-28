@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    env_file:
+      - .env.local
+    volumes:
+      - ./tmp/postgresql/data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - mynetwork
+  postgres_admin:
+    image: dpage/pgadmin4:7.0
+    container_name: postgres_admin
+    restart: always
+    env_file:
+      - .env.local
+    volumes:
+      - ./tmp/pgadmin:/var/lib/pgadmin
+    ports:
+      - '5050:80'
+    depends_on:
+      - postgres
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
