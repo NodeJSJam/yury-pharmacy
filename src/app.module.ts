@@ -5,6 +5,7 @@ import { DatabaseConfigService } from './configurations/database';
 import { AppConfigService } from './configurations/app';
 import { DrugsModule } from './drugs/drugs.module';
 import { BrandsModule } from './brands/brands.module';
+import { Brand, Drug, Pharmacy, PharmacyDrug } from './entities';
 
 @Module({
   imports: [
@@ -20,6 +21,9 @@ import { BrandsModule } from './brands/brands.module';
         database: databaseConfigService.databaseName,
         synchronize: !appConfig.isProdaction,
         autoLoadEntities: true,
+        entities: [Brand, PharmacyDrug, Drug, Pharmacy],
+        seeds: ['src/seeding/seeds/**/*{.ts,.js}'],
+        factories: ['src/seeding/factories/**/*{.ts,.js}'],
       }),
     }),
     ConfigurationsModule,

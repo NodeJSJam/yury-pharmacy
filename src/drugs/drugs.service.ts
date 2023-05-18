@@ -8,10 +8,24 @@ export class DrugsService {
   constructor(@InjectRepository(Drug) private drugRepository: Repository<Drug>) {}
 
   async findAll(): Promise<Drug[]> {
-    return await this.drugRepository.find();
+    return await this.drugRepository.find({
+      relations: {
+        brand: true,
+        pharmaciesDrugs: {
+          pharmacy: true,
+          drug: true,
+        },
+      },
+    });
   }
 
   async findOne(id: string): Promise<Drug> {
-    return await this.drugRepository.findOne({ where: { id } });
+    return await this.drugRepository.findOne({
+      where: { id },
+      relations: {
+        brand: true,
+        pharmaciesDrugs: true,
+      },
+    });
   }
 }

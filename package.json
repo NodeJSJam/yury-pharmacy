@@ -18,7 +18,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
   },
   "dependencies": {
     "@nestjs/common": "^9.4.0",
@@ -34,6 +36,7 @@
     "typeorm-extension": "^2.7.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.1",
     "@golevelup/nestjs-testing": "^0.1.2",
     "@nestjs/cli": "^9.4.2",
     "@nestjs/schematics": "^9.1.0",
@@ -56,6 +59,7 @@
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
+    "typeorm-seeding": "^1.6.1",
     "typescript": "^5.0.4"
   },
   "jest": {

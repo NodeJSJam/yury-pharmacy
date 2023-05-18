@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinTable, ManyToMany } from 'typeorm';
 import { Brand } from './brand.entity';
+import { PharmacyDrug } from './pharmacyDrug.entity';
+import { Pharmacy } from './pharmacy.entity';
 
 @Entity('drugs')
 export class Drug {
@@ -12,9 +14,6 @@ export class Drug {
   @Column({ type: 'varchar', length: 255 })
   description: string;
 
-  @ManyToOne(() => Brand, brand => brand.drugs, { nullable: false })
-  brand: Brand;
-
   @Column({ type: 'boolean', default: false, name: 'by_prescription' })
   byPrescription: boolean;
 
@@ -23,4 +22,14 @@ export class Drug {
 
   @Column({ type: 'varchar', length: 255 })
   manufacturer: string;
+
+  @ManyToOne(() => Brand, brand => brand.drugs, { nullable: false })
+  brand: Brand;
+
+  @OneToMany(() => PharmacyDrug, pharmacyDrug => pharmacyDrug.pharmacy)
+  pharmaciesDrugs: PharmacyDrug[];
+
+  // @ManyToMany(() => Pharmacy, pharmacy => pharmacy.drugs)
+  // @JoinTable({ name: 'pharmacies_drugs' })
+  // pharmacies: Pharmacy[];
 }
